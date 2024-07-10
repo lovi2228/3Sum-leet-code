@@ -1,0 +1,27 @@
+class Solution {
+public:
+
+    void solve(int i,int t,vector<int>&vec,vector<vector<int>>&ans,vector<int>&v){
+        if(t<0) return;
+        if(t==0){
+            ans.push_back(v);
+            return;
+        }
+        if(i==vec.size()) return;
+        
+        v.push_back(vec[i]);
+        solve(i+1,t-vec[i],vec,ans,v);
+        v.pop_back();
+        while(i<vec.size()-1 && vec[i]==vec[i+1]) i++;
+        solve(i+1,t,vec,ans,v);
+        
+        
+    }
+    vector<vector<int>> combinationSum2(vector<int>& vec, int t) {
+        vector<vector<int>>ans;
+        vector<int>v;
+        sort(vec.begin(),vec.end());
+        solve(0,t,vec,ans,v);
+        return ans;
+    }
+};
